@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function findStrongestWord(sentence) {
+            const words = sentence.split(" ");
+            let strongestWord = "";
+            let maxHMSPL = 0;
+
+            for (const word of words) {
+                const hmsplCount = countHMSPL(word);
+                if (hmsplCount > maxHMSPL || (hmsplCount === maxHMSPL && word < strongestWord)) {
+                    strongestWord = word;
+                    maxHMSPL = hmsplCount;
+                }
+            }
+            return strongestWord;
+        }
+
+        function countHMSPL(word) {
+            const hmsplChars = ["h", "m", "s", "p", "l"];
+            let count = 0;
+            for (const char of word) {
+                if (hmsplChars.includes(char)) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        const sentence = "Helping businesses enhance performance, deliver better service, improve customer experience, and react faster to market demands";
+        const strongestWord = findStrongestWord(sentence);
+        console.log(strongestWord);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // function mergeAlphabetPairs(pairs) {
+        //     // Step 1: sort the alphabet pairs
+        //     pairs.sort((a, b) => a[0].localeCompare(b[0]));
+
+        //     // Step 2: create an empty array to store the merged pairs
+        //     const mergedPairs = [];
+
+        //     // Step 3: loop through each alphabet pair
+        //     let currentPair = pairs[0];
+        //     for (let i = 1; i < pairs.length; i++) {
+        //         const nextPair = pairs[i];
+
+        //         // Step 4: merge the overlapping pairs
+        //         if (nextPair[0].localeCompare(currentPair[1]) <= 0) {
+        //             currentPair[1] = nextPair[1];
+        //         }
+        //         // Step 5: add the previous merged pair to the array of merged pairs and start a new merged pair
+        //         else {
+        //             mergedPairs.push(currentPair);
+        //             currentPair = nextPair;
+        //         }
+        //     }
+
+        //     // Step 6: add the last merged pair to the array of merged pairs
+        //     mergedPairs.push(currentPair);
+
+        //     return mergedPairs;
+        // }
+        // const pairs = [['a', 'c'], ['b', 'd'], ['m', 'p'], ['x', 'z']];
+        // const mergedPairs = mergeAlphabetPairs(pairs);
+        // console.log(mergedPairs); // Output: [['a', 'f'], ['h', 'j']]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // alphabetArray.sort();
+        //     // let array = [['d', 'f'], ['a', 'w'], ['j', 'm'], ['p', 'u']];
+        //     let array = alphabetArray;
+        //     let newArray = [];
+        //     let k = 0;
+        //     array.sort();
+        //     console.log('array', array);
+        //     for (let i = 0; i < array.length; i++) {
+        //         console.log('array', array[i]);
+        //         for (let j = 0; j < array[i][j].length; j++) {
+        //             if (array[k][k].charCodeAt(0) < array[i + 1][j].charCodeAt(0) && array[k][k + 1].charCodeAt(0) > array[i + 1][j].charCodeAt(0)) {
+        //                 console.log(array[k][k] + ' < ' + array[i + 1][j] + ' > ' + array[k][k + 1]);
+        //                 newArray[0] = array[k];
+        //                 return newArray
+        //             } else {
+        //                 console.log('ELSE', array[k][k] + ' < ' + array[i + 1][j] + ' > ' + array[k][k + 1]);
+        //                 // newArray.push(array[k]);
+        //                 // k++;
+        //             }
+        //         }
+            // }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equal Arrays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container font-[Kanit] mx-auto text-gray-700">
+        <h2 class="text-2xl text-gray-600 font-bold my-5">Check if Two Arrays are Equal or Not !</h2>
+        <div class="flex gap-28">
+            <div class="flex flex-col gap-5">
+                <label class="text-lg font-bold" for="">Enter the Elements of Array One</label>
+                <span>
+                    <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1" id="arrayOne">
+                    <button onclick="getArrayOneValue()"
+                        class="border border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">Add</button>
+                </span>
+                <p class="hidden" id="showArrayOne">Array One is : [ <span id="arrayOneBlock"></span> ]</p>
+            </div>
+            <div class="flex flex-col gap-5">
+                <label class="text-lg font-bold" for="">Enter the Elements of Array Two</label>
+                <span>
+                    <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1" id="arrayTwo">
+                    <button onclick="getArrayTwoValue()"
+                        class="border border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">Add</button>
+                </span>
+                <p class="hidden" id="showArrayTwo">Array Two is : [ <span id="arrayTwoBlock"></span> ]</p>
+            </div>
+        </div>
+        <button onclick="trueOrFalse()"
+            class="my-5 border border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">Check</button>
+        <div class="hidden" id="true">True</div>
+        <div class="hidden" id="false">False</div>
+    </section>
+    <script>
+        let arrayOne = [];
+        let arrayTwo = [];
+
+        function getArrayOneValue() {
+            let showArrayOne = document.getElementById('showArrayOne');
+            let arrayOneValue = document.getElementById('arrayOne').value;
+            let arrayOneText = document.createElement('span');
+            showArrayOne.classList.remove('hidden')
+            arrayOne.push(Number(arrayOneValue.split()));
+            arrayOneText.innerText = arrayOneValue + ' ';
+            document.getElementById('arrayOneBlock').appendChild(arrayOneText);
+            document.getElementById('arrayOne').value = '';
+        }
+
+        function getArrayTwoValue() {
+            let showArrayTwo = document.getElementById('showArrayTwo');
+            let arrayTwoValue = document.getElementById('arrayTwo').value;
+            let arrayTwoText = document.createElement('span');
+            showArrayTwo.classList.remove('hidden')
+            arrayTwo.push(Number(arrayTwoValue.split()));
+            arrayTwoText.innerText = arrayTwoValue + ' ';
+            document.getElementById('arrayTwoBlock').appendChild(arrayTwoText);
+            document.getElementById('arrayTwo').value = '';
+        }
+
+        function equalOrNot() {
+            let n = arrayOne.length;
+            arrayOne.sort();
+            arrayTwo.sort();
+            for (let i = 0; i < n; i++) {
+                if (arrayOne[i] !== arrayTwo[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function trueOrFalse() {
+            if (equalOrNot()) {
+                document.getElementById('true').classList.remove('hidden');
+                document.getElementById('false').classList.add('hidden');
+            } else {
+                document.getElementById('false').classList.remove('hidden');
+                document.getElementById('true').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

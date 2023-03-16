@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge Alphabet Pairs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container font-[Kanit] flex flex-col items-center mx-auto text-gray-700">
+        <h2 class="text-2xl text-gray-600 font-bold my-5">Merge Alphabet Pairs </h2>
+        <div class="flex gap-28">
+            <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-y-5">
+                    <label class="text-lg font-bold" for="">Enter the Alphabet as Pairs</label>
+                    <span>
+                        <input type="text" maxlength="2" class="border border-violet-500 focus:outline-none px-3 py-1"
+                            id="alphabetField">
+                        <button onclick="getAlphabet()"
+                            class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                    </span>
+                    <p class="hidden" id="showAlphabet">Alphabet Pairs : </p>
+                </div>
+                <div>
+                    <button onclick="getCabs()"
+                        class="my-4 border duration-200 border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">Get
+                        Cabs !</button>
+                </div>
+                <div>
+                    <p class="hidden" id="output"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        let alphabetArray = [];
+        function getAlphabet() {
+            let alphabetField = document.getElementById('alphabetField').value;
+            document.getElementById('showAlphabet').classList.remove('hidden');
+            let splittedArray = [];
+            for (let i = 0; i < alphabetField.length; i++) {
+                let splittedText = alphabetField.substring(i, i + 1);
+                splittedArray.push(splittedText);
+            }
+            alphabetArray.push(splittedArray);
+            let newElement = document.createElement('span');
+            newElement.innerText = '{' + splittedArray + '}' + ' ';
+            document.getElementById('showAlphabet').appendChild(newElement);
+            document.getElementById('alphabetField').value = '';
+        }
+
+        function getMinimumCabs(alphabetArray) {
+            alphabetArray.sort();
+            let array = [['d', 'f'], ['a', 'w'], ['j', 'm'], ['p', 'u']];
+            array.sort();
+            for (let i = 0; i < array.length; i++) {
+                console.log('array', array[i]);
+                for (let j = 0; j < array.length; j++) {
+                    console.log('array sdv', array[i][j]);
+                    console.log('CHAR',array[i][j].toString().charCodeAt());
+                }
+            }
+
+            if (a <= b && b <= c) {
+                console.log('TRUE');
+                // b is between a and c
+            } else {
+                // b is not between a and c
+            }
+
+            if (a > b) {
+                console.log('TRUE');
+            }
+            return array
+        }
+
+        function getCabs() {
+            document.getElementById('output').classList.remove('hidden');
+            document.getElementById('output').innerText = 'Output: ' + getMinimumCabs(alphabetArray);
+        }
+    </script>
+</body>
+
+</html>

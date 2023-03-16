@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swap Two</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container font-[Kanit] flex flex-col items-center mx-auto text-gray-700 relative">
+        <h2 class="text-2xl text-gray-600 font-bold my-5">Swap Two</h2>
+        <div class="flex gap-28">
+            <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-y-5">
+                    <label class="text-lg font-bold" for="">Enter Array One Values</label>
+                    <span>
+                        <input type="number" maxlength="1" class="border border-violet-500 focus:outline-none px-3 py-1"
+                            id="arrayOneField">
+                        <button onclick="getArrayOne()"
+                            class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                    </span>
+                    <p class="hidden" id="showArrayOne">Array One : </p>
+                </div>
+                <div class="flex flex-col gap-y-5">
+                    <label class="text-lg font-bold" for="">Enter Array Two Values</label>
+                    <span>
+                        <input type="number" maxlength="1" class="border border-violet-500 focus:outline-none px-3 py-1"
+                            id="arrayTwoField">
+                        <button onclick="getArrayTwo()"
+                            class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                    </span>
+                    <p class="hidden" id="showArrayTwo">Array Two : </p>
+                </div>
+                <div class="text-center">
+                    <button onclick="checkPairs()"
+                        class="my-4 border duration-200 border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">Get
+                        Pairs !</button>
+                </div>
+                <div>
+                    <p class="hidden" id="output"></p>
+                </div>
+            </div>
+        </div>
+        <div id="toaster" class="bg-violet-500 hidden text-white px-10 text-lg shadow-lg absolute top-5 right-0 py-1"></div>
+    </section>
+    <script>
+        let arrayOne = [];
+        let arrayTwo = [];
+        function getArrayOne() {
+            let arrayOneField = document.getElementById('arrayOneField').value;
+            document.getElementById('showArrayOne').classList.remove('hidden');
+            if (arrayOneField) {
+                arrayOne.push(Number(arrayOneField));
+            }
+            let newElement = document.createElement('span');
+            newElement.innerText = arrayOneField + ' ';
+            document.getElementById('showArrayOne').appendChild(newElement);
+            document.getElementById('arrayOneField').value = '';
+        }
+
+        function getArrayTwo() {
+            let arrayTwoField = document.getElementById('arrayTwoField').value;
+            document.getElementById('showArrayTwo').classList.remove('hidden');
+            if (arrayTwoField) {
+                arrayTwo.push(Number(arrayTwoField));
+            }
+            let newElement = document.createElement('span');
+            newElement.innerText = arrayTwoField + ' ';
+            document.getElementById('showArrayTwo').appendChild(newElement);
+            document.getElementById('arrayTwoField').value = '';
+        }
+
+        function toaster(message) {
+                document.getElementById('toaster').innerText = message;
+                document.getElementById('toaster').classList.remove('hidden')
+            setTimeout(() => {
+                document.getElementById('toaster').innerText = '';
+                document.getElementById('toaster').classList.add('hidden')
+            }, 3000);
+        }
+
+        function swapTwo(arrayOne, arrayTwo) {
+            let sumOfArrayOne = 0;
+            let sumOfArrayTwo = 0;
+            let valueOne = 0;
+            let valueTwo = 0;
+            let name = '';
+
+            for (let i = 0; i < arrayOne.length; i++) {
+                sumOfArrayOne = sumOfArrayOne + arrayOne[i];
+            }
+
+            for (let i = 0; i < arrayTwo.length; i++) {
+                sumOfArrayTwo = sumOfArrayTwo + arrayTwo[i];
+            }
+
+            for (let i = 0; i < arrayOne.length; i++) {
+                for (let j = 0; j < arrayTwo.length; j++) {
+                    let newSumOfArrayOne = sumOfArrayOne - arrayOne[i] + arrayTwo[j];
+                    let newSumOfArrayTwo = sumOfArrayTwo - arrayTwo[j] + arrayOne[i];
+                    if (newSumOfArrayOne === newSumOfArrayTwo) {
+                        valueOne = arrayOne[i];
+                        valueTwo = arrayTwo[j];
+                    }
+                }
+            }
+            return valueOne && valueTwo ? "Pairs : " + valueOne + ' ' + valueTwo : "No Matching Pairs"
+
+        }
+
+        function checkPairs() {
+            document.getElementById('output').classList.remove('hidden');
+            if (arrayOne.length && arrayTwo.length) {
+                document.getElementById('output').innerText = swapTwo(arrayOne, arrayTwo);
+            } else {
+                toaster('Enter All Fields !');
+            }
+        }
+    </script>
+</body>
+
+</html>

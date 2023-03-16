@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>longest Seq Queue</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container font-[Kanit] flex flex-col items-center mx-auto text-gray-700">
+        <h2 class="text-2xl text-gray-600 font-bold my-5">Longest Sequence Queue</h2>
+        <div class="flex gap-28">
+            <div class="flex flex-col gap-5">
+                <label class="text-lg font-bold" for="">Enter the Elements</label>
+                <span>
+                    <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1" id="inputField">
+                    <button onclick="getArrayValue()"
+                        class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                </span>
+                <p class="hidden" id="showArray">Array One is : [ <span id="arrayBlock"></span> ]</p>
+                <label class="text-lg font-bold" for="">Enter the number of Spell</label>
+                <span>
+                    <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1" id="spellField">
+                    <button onclick="getSpellValue()"
+                        class="border border-violet-500 duration-200 px-5 py-1 hover:bg-violet-500 hover:text-white">Add</button>
+                </span>
+                <p class="hidden" id="showSpell"></p>
+                <button onclick="seqQueue()"
+                    class="my-4 border duration-200 border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">QUEUE</button>
+                <p class="hidden" id="output"></p>
+            </div>
+        </div>
+    </section>
+    <script>
+        array = [];
+        m = 0;
+
+        function getArrayValue() {
+            let showArray = document.getElementById('showArray');
+            let inputFieldValue = document.getElementById('inputField').value;
+            let arrayText = document.createElement('span');
+            showArray.classList.remove('hidden')
+            array.push(Number(inputFieldValue.split()));
+            arrayText.innerText = inputFieldValue + ' ';
+            document.getElementById('arrayBlock').appendChild(arrayText);
+            document.getElementById('inputField').value = '';
+        }
+
+        function getSpellValue() {
+            let showSpell = document.getElementById('showSpell');
+            let spellField = document.getElementById('spellField').value;
+            showSpell.classList.remove('hidden');
+            m = spellField;
+            document.getElementById('showSpell').innerText = 'Number of Spells : ' + spellField;
+            document.getElementById('spellField').value = '';
+        }
+
+        function longestQueue(array, m) {
+            let n = array.length;
+            let count = 0;
+            let maxCount = 0;
+            let spellCount = 0;
+
+            for (let i = 0; i < n; i++) {
+                if (array[i] === 1) {
+                    count++;
+                } else if (array[i] === 0 && spellCount < m) {
+                    count++;
+                    spellCount++;
+                } else if (array[i] === 0 && spellCount === m) {
+                    maxCount = Math.max(maxCount, count);
+                    count = 0;
+                    spellCount = 0;
+                }
+            }
+            return Math.max(maxCount, count);
+        }
+
+        function seqQueue() {
+            document.getElementById('output').classList.remove('hidden');
+            document.getElementById('output').innerText = 'Maximum length of Queue is : ' + longestQueue(array, m);
+        }
+    </script>
+</body>
+
+</html>

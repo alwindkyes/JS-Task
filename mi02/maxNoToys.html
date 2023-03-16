@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Toys</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container font-[Kanit] flex flex-col items-center mx-auto text-gray-700">
+        <h2 class="text-2xl text-gray-600 font-bold my-5">Maximum Number of Toys</h2>
+        <div class="flex gap-28">
+            <div class="flex flex-col gap-5">
+                <label class="text-lg font-bold" for="">Enter the Weights of the Toys</label>
+                <span>
+                    <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1" id="inputField">
+                    <button onclick="getArrayValue()"
+                        class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                </span>
+                <p class="hidden" id="showArray">Array One is : [ <span id="arrayBlock"></span> ]</p>
+                <label class="text-lg font-bold" for="">Enter the Allowed Weight</label>
+                <span>
+                    <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1" id="weightField">
+                    <button onclick="getSpellValue()"
+                        class="border border-violet-500 duration-200 px-5 py-1 hover:bg-violet-500 hover:text-white">Add</button>
+                </span>
+                <p class="hidden" id="showWeight"></p>
+                <button onclick="maxToys()"
+                    class="my-4 border duration-200 border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">Allowed
+                    Toys</button>
+                <p class="hidden" id="output"></p>
+            </div>
+        </div>
+    </section>
+    <script>
+        array = [];
+        w = 0;
+
+        function getArrayValue() {
+            let showArray = document.getElementById('showArray');
+            let inputFieldValue = document.getElementById('inputField').value;
+            let arrayText = document.createElement('span');
+            showArray.classList.remove('hidden')
+            array.push(Number(inputFieldValue.split()));
+            arrayText.innerText = inputFieldValue + ' ';
+            document.getElementById('arrayBlock').appendChild(arrayText);
+            document.getElementById('inputField').value = '';
+        }
+
+        function getSpellValue() {
+            let showWeight = document.getElementById('showWeight');
+            let weightField = document.getElementById('weightField').value;
+            showWeight.classList.remove('hidden');
+            w = weightField;
+            showWeight.innerText = 'Allowed Weight is : ' + w;
+            document.getElementById('weightField').value = '';
+        }
+
+        function allowedToys(array, w) {
+            let n = array.length;
+            let allowedToys = [];
+            let sum = 0;
+            array.sort((a, b) => {
+                return a - b
+            });
+            for (let i = 0; i < n; i++) {
+                sum = sum + array[i];
+                if (sum <= w) {
+                    allowedToys.push(array[i])
+                }
+            }
+            return allowedToys;
+        }
+
+        function maxToys() {
+            document.getElementById('output').classList.remove('hidden');
+            console.log('allowedToys(array, w)',allowedToys(array, w));
+            document.getElementById('output').innerText = 'Allowed Toys are : ' + allowedToys(array, w);
+        }
+    </script>
+</body>
+
+</html>

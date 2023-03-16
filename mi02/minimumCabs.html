@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimum Cabs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container font-[Kanit] flex flex-col items-center mx-auto text-gray-700">
+        <h2 class="text-2xl text-gray-600 font-bold my-5">Minimum Cabs</h2>
+        <div class="flex gap-28">
+            <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-y-5">
+                    <label class="text-lg font-bold" for="">Enter the Number Guests !</label>
+                    <span>
+                        <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1"
+                            id="numberOfGuestsField">
+                        <button onclick="getNumberOfGuests()"
+                            class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                    </span>
+                    <p class="hidden" id="showNumberOfGuests"></p>
+                </div>
+                <div class="flex flex-col gap-y-5">
+                    <label class="text-lg font-bold" for="">Enter the Guests arrival Time</label>
+                    <span>
+                        <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1"
+                            id="arrivalTimeField">
+                        <button onclick="getArrivalTime()"
+                            class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                    </span>
+                    <p class="hidden" id="showArrivalTime">Guests Arrival Time : </p>
+                </div>
+                <div class="flex flex-col gap-y-5">
+                    <label class="text-lg font-bold" for="">Enter Running Time</label>
+                    <span>
+                        <input type="number" class="border border-violet-500 focus:outline-none px-3 py-1"
+                            id="runningTimeField">
+                        <button onclick="getRunningTime()"
+                            class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                    </span>
+                    <p class="hidden" id="showRunningTime"></p>
+                </div>
+                <div>
+                    <button onclick="getCabs()"
+                        class="my-4 border duration-200 border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">Get
+                        Cabs !</button>
+                </div>
+                <div>
+                    <p class="hidden" id="output"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        let numberOfGuestsField = 0;
+        let timeField = 0;
+        let arrivalTimeField = [];
+        let runningTimeField = 0;
+        function getNumberOfGuests() {
+            numberOfGuestsField = Number(document.getElementById('numberOfGuestsField').value);
+            document.getElementById('showNumberOfGuests').classList.remove('hidden');
+            document.getElementById('showNumberOfGuests').innerText = 'Number Of Guests : ' + numberOfGuestsField;
+            document.getElementById('numberOfGuestsField').value = '';
+        }
+
+        function getArrivalTime() {
+            timeField = document.getElementById('arrivalTimeField').value;
+            document.getElementById('showArrivalTime').classList.remove('hidden');
+            arrivalTimeField.push(timeField)
+            let newElement = document.createElement('span');
+            newElement.innerText = timeField + ' ';
+            document.getElementById('showArrivalTime').appendChild(newElement);
+            document.getElementById('arrivalTimeField').value = '';
+        }
+
+        function getRunningTime() {
+            runningTimeField = Number(document.getElementById('runningTimeField').value);
+            document.getElementById('showRunningTime').classList.remove('hidden');
+            document.getElementById('showRunningTime').innerText = 'Running Time : ' + runningTimeField;
+            document.getElementById('runningTimeField').value = '';
+        }
+
+        function getMinimumCabs(getNumberOfGuests, arrivalTimeField, runningTimeField) {
+            let cab = 1;
+            let newArray = [];
+            for (let i = 0; i < arrivalTimeField.length; i++) {
+                let hours = arrivalTimeField[i].toString().substr(0, 2);
+                let minutes = arrivalTimeField[i].toString().substr(2, 3);
+                let minutesPlusRt = Number(minutes) + runningTimeField;
+
+                if (minutesPlusRt >= 60) {
+                    if (minutesPlusRt - 60 === 0) {
+                        newArray[i] = ((Number(hours) + 1) + '00').length === 4 ? (Number(hours) + 1) + '00' : '0' + ((Number(hours) + 1) + '00');
+                        if (newArray[i] > arrivalTimeField[i + 1]) {
+                            cab++;
+                        }
+                    } else {
+                        let twoDigitHours = (Number(hours) + 1).toString().length === 1 ? '0' + (Number(hours) + 1) : (Number(hours) + 1);
+                        let twoDigitMinutes = (minutesPlusRt - 60).toString().length === 1 ? '0' + (minutesPlusRt - 60).toString() : (minutesPlusRt - 60).toString();
+                        newArray[i] = twoDigitHours || twoDigitMinutes ? twoDigitHours + twoDigitMinutes : (Number(hours) + 1) + (minutesPlusRt - 60).toString();
+                        if (newArray[i] > arrivalTimeField[i + 1]) {
+                            cab++;
+                        }
+                    }
+
+                } else {
+                    newArray[i] = hours + minutesPlusRt
+                    if (newArray[i] > arrivalTimeField[i + 1]) {
+                        cab++;
+                    }
+                }
+            }
+            return cab;
+        }
+
+        function getCabs() {
+            document.getElementById('output').classList.remove('hidden');
+            document.getElementById('output').innerText = 'The Minimum required cabs are: ' + getMinimumCabs(getNumberOfGuests, arrivalTimeField, runningTimeField);
+        }
+    </script>
+</body>
+
+</html>

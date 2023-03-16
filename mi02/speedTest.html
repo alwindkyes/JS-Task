@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container font-[Kanit] flex flex-col items-center mx-auto text-gray-700">
+        <h2 class="text-2xl text-gray-600 font-bold my-5">Speed Test</h2>
+        <div class="flex gap-28">
+            <div class="flex flex-col gap-5">
+                <div class="flex gap-x-10">
+                    <div class="flex flex-col gap-y-5">
+                        <label class="text-lg font-bold" for="">Enter Sivakumar's Office Distance</label>
+                        <span>
+                            <input type="number" class="border w-1/2 border-violet-500 focus:outline-none px-3 py-1"
+                                id="distanceOfSivakumar">
+                            <button onclick="getDistanceOfSivakumar()"
+                                class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                        </span>
+                        <p class="hidden" id="showDistanceOfSivakumar"></p>
+                    </div>
+                    <div class="flex flex-col gap-y-5">
+                        <label class="text-lg font-bold" for="">Enter Sivakumar's Time</label>
+                        <span>
+                            <input type="number" class="border w-1/2 border-violet-500 focus:outline-none px-3 py-1"
+                                id="timeOfSivakumar">
+                            <button onclick="getTimeOfSivakumar()"
+                                class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                        </span>
+                        <p class="hidden" id="showTimeOfSivakumar"></p>
+                    </div>
+                </div>
+                <div class="flex gap-x-10">
+                    <div class="flex flex-col gap-y-5">
+                        <label class="text-lg font-bold" for="">Enter Aathiselvam's Office Distance</label>
+                        <span>
+                            <input type="number" class="border w-1/2 border-violet-500 focus:outline-none px-3 py-1"
+                                id="distanceOfAthiselvam">
+                            <button onclick="getDistanceOfAthiselvam()"
+                                class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                        </span>
+                        <p class="hidden" id="showDistanceOfAthiselvam"></p>
+                    </div>
+                    <div class="flex flex-col gap-y-5">
+                        <label class="text-lg font-bold" for="">Enter Aathiselvam's Time</label>
+                        <span>
+                            <input type="number" class="border w-1/2 border-violet-500 focus:outline-none px-3 py-1"
+                                id="timeOfAthiselvam">
+                            <button onclick="getTimeOfAthiselvam()"
+                                class="border border-violet-500 px-5 py-1 duration-200 hover:bg-violet-500 hover:text-white">Add</button>
+                        </span>
+                        <p class="hidden" id="showTimeOfAthiselvam"></p>
+                    </div>
+                </div>
+                <div>
+                    <button onclick="findFaster()"
+                        class="my-4 border duration-200 border-violet-500 px-5 py-1 hover:bg-violet-500 hover:text-white">Who's
+                        Faster ?</button>
+                </div>
+                <div>
+                    <p class="hidden" id="output"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        let distanceOfSivakumar = 0;
+        let timeOfSivakumar = 0;
+        let distanceOfAthiselvam = 0;
+        let timeOfAthiselvam = 0;
+        function getDistanceOfSivakumar() {
+            distanceOfSivakumar = Number(document.getElementById('distanceOfSivakumar').value);
+            document.getElementById('showDistanceOfSivakumar').classList.remove('hidden');
+            document.getElementById('showDistanceOfSivakumar').innerText = 'Distance of Sivakumar : ' + distanceOfSivakumar;
+            document.getElementById('distanceOfSivakumar').value = '';
+        }
+
+        function getTimeOfSivakumar() {
+            timeOfSivakumar = Number(document.getElementById('timeOfSivakumar').value);
+            document.getElementById('showTimeOfSivakumar').classList.remove('hidden');
+            document.getElementById('showTimeOfSivakumar').innerText = 'Time of Sivakumar : ' + timeOfSivakumar;
+            document.getElementById('timeOfSivakumar').value = '';
+        }
+
+        function getDistanceOfAthiselvam() {
+            distanceOfAthiselvam = Number(document.getElementById('distanceOfAthiselvam').value);
+            document.getElementById('showDistanceOfAthiselvam').classList.remove('hidden');
+            document.getElementById('showDistanceOfAthiselvam').innerText = 'Distance of Athiselvam : ' + distanceOfAthiselvam;
+            document.getElementById('distanceOfAthiselvam').value = '';
+        }
+
+        function getTimeOfAthiselvam() {
+            timeOfAthiselvam = Number(document.getElementById('timeOfAthiselvam').value);
+            document.getElementById('showTimeOfAthiselvam').classList.remove('hidden');
+            document.getElementById('showTimeOfAthiselvam').innerText = 'Time of Athiselvam : ' + timeOfAthiselvam;
+            document.getElementById('timeOfAthiselvam').value = '';
+        }
+
+        function getFaster(speedOfSivakumar, speedOfAthiselvam) {
+            if (speedOfSivakumar > speedOfAthiselvam) {
+                return 'Sivakumar is Faster !';
+            } else if (speedOfSivakumar < speedOfAthiselvam) {
+                return 'Athiselvam is Faster !';
+            } else if (speedOfSivakumar === speedOfAthiselvam) {
+                return 'Both are Equal !'
+            }
+        }
+
+        function findFaster() {
+            array = [20, 30, 40, 10];
+            w = 50;
+            let speedOfSivakumar = distanceOfSivakumar / timeOfSivakumar;
+            let speedOfAthiselvam = distanceOfAthiselvam / timeOfAthiselvam;
+            document.getElementById('output').classList.remove('hidden');
+            document.getElementById('output').innerText = getFaster(speedOfSivakumar, speedOfAthiselvam);
+        }
+    </script>
+</body>
+
+</html>
